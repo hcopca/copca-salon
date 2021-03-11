@@ -5,11 +5,12 @@ const Eventos = require("../models/Eventos");
 
 //Ruta para crear eventos.
 router.post("/crear", (req, res, next) => {
-  const { nombre, tipo, userId } = req.body;
+  const { nombre, tipo, imagen, userId } = req.body;
 
   Eventos.create({
     nombre,
     tipo,
+    imagen,
     userId,
   })
     .then((eventoCreado) => {

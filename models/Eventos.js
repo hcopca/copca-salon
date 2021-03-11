@@ -9,6 +9,9 @@ const eventosSchema = new Schema(
     tipo: {
       type: String,
     },
+    imagen: {
+      type: String,
+    },
     userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
