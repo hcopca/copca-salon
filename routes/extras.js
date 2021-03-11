@@ -13,20 +13,19 @@ router.post("/crear", (req, res, next) => {
     userId,
   })
     .then((extraCreado) => {
-      req.status(200).json({ extraCreado });
+      res.status(200).json({ extraCreado });
     })
-    .catch.err((err) => res.status(500).json({ err }));
+    .catch((err) => res.status(500).json({ err }));
 });
 
 //Ruta para editar extras.
 
-router.patch("/extras/edit/:id", (req, res, next) => {
+router.patch("/edit/:id", (req, res, next) => {
   const { id } = req.params;
-  const { nombre, cantidad, userId } = req.body;
 
-  Extras.findByIdAndUpdate(id, { nombre, cantidad, userId }, { new: true })
-    .then((extraCreado) => {
-      res.status(200).json({ extraCreado });
+  Extra.findByIdAndUpdate(id, { ...req.body }, { new: true })
+    .then((extra) => {
+      res.status(200).json({ extra });
     })
     .catch((err) => res.status(500).json({ err }));
 });
