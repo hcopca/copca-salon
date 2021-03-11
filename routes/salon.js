@@ -10,6 +10,7 @@ router.post("/crear", (req, res, next) => {
     capacidadMax,
     imagen,
     detalles,
+    precio,
     userId,
   } = req.body;
 
@@ -19,6 +20,7 @@ router.post("/crear", (req, res, next) => {
     capacidadMax,
     imagen,
     detalles,
+    precio,
     userId,
   })
     .then((salonCreado) => {

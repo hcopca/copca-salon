@@ -21,6 +21,7 @@ const salonesSchema = new Schema(
     detalles: {
       type: String,
     },
+    precio: { type: Number },
 
     userId: {
       type: Schema.Types.ObjectId,
