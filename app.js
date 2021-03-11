@@ -53,10 +53,12 @@ const index = require("./routes/index");
 const auth = require("./routes/auth");
 const salones = require("./routes/salon");
 const extra = require("./routes/extras");
+const evento = require("./routes/eventos");
 app.use("/", index);
 app.use("/auth", auth);
 app.use("/salones", salones);
 app.use("/extras", extra);
+app.use("/eventos", evento);
 
 // Uncomment this line for production
 // app.get('/*', (req, res) => res.sendFile(__dirname + '/public/index.html'));

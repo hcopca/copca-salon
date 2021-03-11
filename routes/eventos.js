@@ -5,27 +5,36 @@ const Eventos = require("../models/Eventos");
 
 //Ruta para crear eventos.
 router.post("/crear", (req, res, next) => {
-  const { nombre } = req.body;
+  const { nombre, tipo, userId } = req.body;
 
   Eventos.create({
     nombre,
     tipo,
+    userId,
   })
     .then((eventoCreado) => {
-      req.status(200).json({ eventoCreado });
+      res.status(200).json({ eventoCreado });
     })
-    .catch.err((err) => res.status(500).json({ err }));
+    .catch((err) => res.status(500).json({ err }));
 });
 
 //Ruta para editar eventos.
 
-router.patch("/eventos/edit/:id", (req, res, next) => {
+router.patch("/edit/:id", (req, res, next) => {
   const { id } = req.params;
-  const { nombre, tipo } = req.body;
 
-  Eventos.findByIdAndUpdate(id, { nombre, tipo }, { new: true })
-    .then((extraCreado) => {
-      res.status(200).json({ extraCreado });
+  Eventos.findByIdAndUpdate(id, { ...req.body }, { new: true })
+    .then((eventoCreado) => {
+      res.status(200).json({ eventoCreado });
+    })
+    .catch((err) => res.status(500).json({ err }));
+});
+
+router.get("/detail/:id", (req, res, next) => {
+  const { id } = req.params;
+  Eventos.findById(id)
+    .then((evento) => {
+      res.status(200).json({ evento });
     })
     .catch((err) => res.status(500).json({ err }));
 });
@@ -35,8 +44,8 @@ router.patch("/eventos/edit/:id", (req, res, next) => {
 router.delete("/delete/:id", (req, res, next) => {
   const { id } = req.params;
   Eventos.findByIdAndDelete(id)
-    .then((extra) => {
-      res.status(200).json({ extra });
+    .then((eventos) => {
+      res.status(200).json({ eventos });
     })
     .catch((err) => res.status(500).json({ err }));
 });
@@ -45,6 +54,15 @@ router.delete("/delete/:id", (req, res, next) => {
 
 router.get("/all", (req, res, next) => {
   Eventos.find()
+    .then((eventos) => {
+      res.status(200).json({ eventos });
+    })
+    .catch((err) => res.status(500).json({ err }));
+});
+
+router.get("/user/:id", (req, res, next) => {
+  const { id } = req.params;
+  Eventos.find({ userId: id })
     .then((eventos) => {
       res.status(200).json({ eventos });
     })

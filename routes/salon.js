@@ -31,12 +31,8 @@ router.post("/crear", (req, res, next) => {
 
 router.patch("/edit/:id", (req, res, next) => {
   const { id } = req.params;
-  const { nombre, capacidadMin, capacidadMax, imagen, detalles } = req.body;
-  Salon.findByIdAndUpdate(
-    id,
-    { nombre, capacidadMin, capacidadMax, imagen, detalles },
-    { new: true }
-  )
+
+  Salon.findByIdAndUpdate(id, { ...req.body }, { new: true })
     .then((salonCreado) => {
       res.status(200).json({ salonCreado });
     })
@@ -60,6 +56,15 @@ router.get("/all", (req, res, next) => {
   Salon.find()
     .then((salones) => {
       res.status(200).json({ salones });
+    })
+    .catch((err) => res.status(500).json({ err }));
+});
+
+router.get("/detail/:id", (req, res, next) => {
+  const { id } = req.params;
+  Salon.findById(id)
+    .then((salon) => {
+      res.status(200).json({ salon });
     })
     .catch((err) => res.status(500).json({ err }));
 });

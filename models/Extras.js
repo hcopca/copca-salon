@@ -11,7 +11,7 @@ const extrasSchema = new Schema(
     },
     userId: {
       type: Schema.Types.ObjectId,
-      ref: "Salon",
+      ref: "User",
     },
   },
   { timestamps: true }

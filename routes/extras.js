@@ -35,7 +35,7 @@ router.patch("/extras/edit/:id", (req, res, next) => {
 
 router.delete("/delete/:id", (req, res, next) => {
   const { id } = req.params;
-  Extras.findByIdAndDelete(id)
+  Extra.findByIdAndDelete(id)
     .then((extra) => {
       res.status(200).json({ extra });
     })
@@ -45,7 +45,24 @@ router.delete("/delete/:id", (req, res, next) => {
 //Ruta para mostrar extras
 
 router.get("/all", (req, res, next) => {
-  Extras.find()
+  Extra.find()
+    .then((extras) => {
+      res.status(200).json({ extras });
+    })
+    .catch((err) => res.status(500).json({ err }));
+});
+router.get("/detail/:id", (req, res, next) => {
+  const { id } = req.params;
+  Extra.findById(id)
+    .then((extra) => {
+      res.status(200).json({ extra });
+    })
+    .catch((err) => res.status(500).json({ err }));
+});
+
+router.get("/user/:id", (req, res, next) => {
+  const { id } = req.params;
+  Extra.find({ userId: id })
     .then((extras) => {
       res.status(200).json({ extras });
     })
