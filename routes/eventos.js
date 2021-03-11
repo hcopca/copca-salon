@@ -1,53 +1,52 @@
 const express = require("express");
-const { findByIdAndUpdate } = require("../models/Extras");
+const { findByIdAndUpdate } = require("../models/Eventos");
 const router = express.Router();
-const Extra = require("../models/Extras");
+const Eventos = require("../models/Eventos");
 
-//Ruta para crear extras.
+//Ruta para crear eventos.
 router.post("/crear", (req, res, next) => {
-  const { nombre, cantidad, userId } = req.body;
+  const { nombre } = req.body;
 
-  Extra.create({
+  Eventos.create({
     nombre,
-    cantidad,
-    userId,
+    tipo,
   })
-    .then((extraCreado) => {
-      req.status(200).json({ extraCreado });
+    .then((eventoCreado) => {
+      req.status(200).json({ eventoCreado });
     })
     .catch.err((err) => res.status(500).json({ err }));
 });
 
-//Ruta para editar extras.
+//Ruta para editar eventos.
 
-router.patch("/extras/edit/:id", (req, res, next) => {
+router.patch("/eventos/edit/:id", (req, res, next) => {
   const { id } = req.params;
-  const { nombre, cantidad, userId } = req.body;
+  const { nombre, tipo } = req.body;
 
-  Extras.findByIdAndUpdate(id, { nombre, cantidad, userId }, { new: true })
+  Eventos.findByIdAndUpdate(id, { nombre, tipo }, { new: true })
     .then((extraCreado) => {
       res.status(200).json({ extraCreado });
     })
     .catch((err) => res.status(500).json({ err }));
 });
 
-//Ruta para borrar extra
+//Ruta para borrar eventos
 
 router.delete("/delete/:id", (req, res, next) => {
   const { id } = req.params;
-  Extras.findByIdAndDelete(id)
+  Eventos.findByIdAndDelete(id)
     .then((extra) => {
       res.status(200).json({ extra });
     })
     .catch((err) => res.status(500).json({ err }));
 });
 
-//Ruta para mostrar extras
+//Ruta para mostrar eventos
 
 router.get("/all", (req, res, next) => {
-  Extras.find()
-    .then((extras) => {
-      res.status(200).json({ extras });
+  Eventos.find()
+    .then((eventos) => {
+      res.status(200).json({ eventos });
     })
     .catch((err) => res.status(500).json({ err }));
 });

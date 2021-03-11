@@ -55,8 +55,8 @@ const salones = require("./routes/salon");
 const extra = require("./routes/extras");
 app.use("/", index);
 app.use("/auth", auth);
-app.use("./salones", salones);
-app.use("./extras", extra);
+app.use("/salones", salones);
+app.use("/extras", extra);
 
 // Uncomment this line for production
 // app.get('/*', (req, res) => res.sendFile(__dirname + '/public/index.html'));

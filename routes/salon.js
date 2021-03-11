@@ -29,7 +29,7 @@ router.post("/crear", (req, res, next) => {
 
 //Ruta para editar salones
 
-router.patch("/salones/edit/:id", (req, res, next) => {
+router.patch("/edit/:id", (req, res, next) => {
   const { id } = req.params;
   const { nombre, capacidadMin, capacidadMax, imagen, detalles } = req.body;
   Salon.findByIdAndUpdate(
@@ -58,6 +58,15 @@ router.delete("/delete/:id", (req, res, next) => {
 
 router.get("/all", (req, res, next) => {
   Salon.find()
+    .then((salones) => {
+      res.status(200).json({ salones });
+    })
+    .catch((err) => res.status(500).json({ err }));
+});
+
+router.get("/user/:id", (req, res, next) => {
+  const { id } = req.params;
+  Salon.find({ userId: id })
     .then((salones) => {
       res.status(200).json({ salones });
     })
