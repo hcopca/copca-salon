@@ -62,7 +62,7 @@ app.use("/eventos", evento);
 
 // Uncomment this line for production
 app.get("/*", (req, res) =>
-  res.sendFile(__dirname + "/public/build/index.html")
+  res.sendFile(`${__dirname}/public/build/index.html`)
 );
 
 module.exports = app;
